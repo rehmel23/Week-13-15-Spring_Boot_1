@@ -15,6 +15,7 @@ import lombok.ToString;
 @Data
 public class Employee {
 
+	// Identifies the primary key for the employee table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long employeeId;
@@ -24,9 +25,11 @@ public class Employee {
 	private String employeePhone;
 	private String employeeJobTitle;
 	
+	// Many to one relationship with pet_store (one pet store has multiple employees)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToOne(cascade = CascadeType.ALL)
+	// Joins tables by pet_store_id
 	@JoinColumn(name = "pet_store_id")
 	private PetStore petStore;
 }

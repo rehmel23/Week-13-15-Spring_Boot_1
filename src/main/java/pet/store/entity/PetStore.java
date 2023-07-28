@@ -20,6 +20,7 @@ import lombok.ToString;
 @Data
 public class PetStore {
 
+	// Identifies the primary key for the pet_store table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long petStoreId;
@@ -31,14 +32,15 @@ public class PetStore {
 	private Long petStoreZip;
 	private String petStorePhone;
 
+	// Many to many relationship with customer. Joins the tables by a join table,
+	// pet_store_customer via pet_store_id and customer_id
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "pet_store_customer", 
-	joinColumns = @JoinColumn(name = "pet_store_id"), 
-	inverseJoinColumns = @JoinColumn(name = "customer_id"))
+	@JoinTable(name = "pet_store_customer", joinColumns = @JoinColumn(name = "pet_store_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
 	private Set<Customer> customers = new HashSet<>();
-
+	
+	// One to many relationship with employee table. One pet store has multiple employees.
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@OneToMany(mappedBy = "petStore", cascade = CascadeType.ALL, orphanRemoval = true)

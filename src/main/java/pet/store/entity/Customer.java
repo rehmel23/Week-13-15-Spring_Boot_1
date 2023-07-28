@@ -17,6 +17,7 @@ import lombok.ToString;
 @Data
 public class Customer {
 
+	// Identifies the primary key for the customer table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerId;
@@ -24,7 +25,8 @@ public class Customer {
 	private String customerFirstName;
 	private String customerLastName;
 	private String customerEmail;
-
+	
+	// Many to many relationship with pet_stores (one customer can use many pet stores and vice versa)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToMany(mappedBy = "customers", cascade = CascadeType.PERSIST)
